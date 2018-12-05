@@ -2,5 +2,5 @@ mod one;
 mod two;
 
 fn main() {
-    println!("{}", one::calculate_frequency().unwrap());
+    println!("{}", two::calculate_checksum());
 }
