@@ -1,6 +1,7 @@
 mod one;
 mod two;
+mod three;
 
 fn main() {
-    println!("{}", two::find_common_letters());
+    println!("{}", three::find_num_square_inches_overlapping());
 }

@@ -29,7 +29,7 @@ pub fn calculate_checksum() -> i32 {
         // but make sure we only count them once per line.
         let mut has_double = false;
         let mut has_triple = false;
-        for (char, count) in counts {
+        for (_char, count) in counts {
             if has_double && has_triple {
                 break;
             }
@@ -49,8 +49,7 @@ pub fn calculate_checksum() -> i32 {
 }
 
 
-/// Return the letters in common between the two box IDs that have a single
-/// character difference.
+// Time: 0.10s
 pub fn find_common_letters() -> String {
     let file = File::open("src/files/two/boxes.txt").unwrap();
     let lines: Vec<String> = BufReader::new(file)
