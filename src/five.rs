@@ -4,13 +4,13 @@ use std::str::Chars;
 const POLYMER_FILE: &'static str = "src/files/five/polymer.txt";
 const UNITS: &'static str = "abcdefghijklmnopqrstuvwxyz";
 
-// Time: 0.23s
+// Time: Part 1: 0.15s, Part 2: 0.54s
 pub fn length_of_final_string() -> usize {
-    // part 1: react().len()
+    let reacted = react(read_to_string(POLYMER_FILE).unwrap());
 
     // part 2:
     let (c, filtered_len) = UNITS.chars()
-        .map(|c| (c, react_filtered(c).len()))
+        .map(move |c| (c, react_filtered(&reacted, c).len()))
         .min_by_key(|&(c, filtered_len)| {
             filtered_len
         })
@@ -21,18 +21,14 @@ pub fn length_of_final_string() -> usize {
 }
 
 
-fn react() -> String {
-    polymer().chars().fold(String::new(), |mut polymer, unit| react_with_unit(&mut polymer, unit))
+fn react(polymer: String) -> String {
+    polymer.chars().fold(String::new(), |mut polymer, unit| react_with_unit(&mut polymer, unit))
 }
 
-fn react_filtered(skip: char) -> String {
-    polymer().chars()
+fn react_filtered(polymer: &String, skip: char) -> String {
+    polymer.chars()
         .filter(|&c| c != skip && c != skip.to_ascii_uppercase())
         .fold(String::new(), |mut polymer, unit| react_with_unit(&mut polymer, unit))
-}
-
-fn polymer() -> String {
-    read_to_string(POLYMER_FILE).unwrap()
 }
 
 fn polar_opposites(a: char, b: char) -> bool {
