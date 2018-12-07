@@ -5,3 +5,4 @@ authors = ["Darren Burns <darren.burns@fanduel.com>"]
 edition = "2018"
 
 [dependencies]
+scan_fmt = "0.1.3"
