@@ -1,13 +1,14 @@
 use std::fs::read_to_string;
 use std::str::Chars;
+
 use rayon::prelude::*;
 
 const POLYMER_FILE: &'static str = "src/files/five/polymer.txt";
 const UNITS: &'static str = "abcdefghijklmnopqrstuvwxyz";
 
-// Time: Part 1: 0.15s, Part 2: 0.32s
+// Time: Part 1: 0.09s, Part 2: 0.14s
 pub fn length_of_final_string() -> usize {
-    let reacted = react(&mut read_to_string(POLYMER_FILE).unwrap());
+    let reacted = react(read_to_string(POLYMER_FILE).unwrap());
 
     // part 2:
     let (c, filtered_len) = UNITS.par_chars()
@@ -20,7 +21,7 @@ pub fn length_of_final_string() -> usize {
 }
 
 
-fn react(polymer: &mut String) -> String {
+fn react(polymer: String) -> String {
     polymer.chars()
         .fold(".".to_string(), |mut polymer, unit| react_with_unit(&mut polymer, unit))
 }
@@ -42,5 +43,5 @@ fn react_with_unit(polymer: &mut String, unit: char) -> String {
     } else {
         polymer.push(unit);
     }
-    polymer
+    polymer.to_string()
 }
