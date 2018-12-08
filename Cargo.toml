@@ -6,3 +6,5 @@ edition = "2018"
 
 [dependencies]
 rayon = "1.0.3"
+uuid = { version = "0.7", features = ["v4"] }
+itertools = "*"

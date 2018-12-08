@@ -3,7 +3,8 @@ mod two;
 mod three;
 mod four;
 mod five;
+mod six;
 
 fn main() {
-    println!("{}", five::length_of_final_string());
+    println!("{:?}", six::get_largest_area());
 }

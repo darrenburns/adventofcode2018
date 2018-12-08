@@ -15,6 +15,7 @@ pub fn first_repeated_frequency() -> i32 {
     let mut file = File::open("src/files/one/frequencies.txt").unwrap();
     let mut seen_totals: HashSet<i32> = [0].iter().cloned().collect();
     let mut total = 0;
+    // TODO: Update to use Cycle iterator
     loop {
         let lines = BufReader::new(&file).lines();
         for line in lines {
@@ -24,6 +25,6 @@ pub fn first_repeated_frequency() -> i32 {
             }
             seen_totals.insert(total);
         }
-        file.seek(SeekFrom::Start(0));
+        file.seek(SeekFrom::Start(0)).unwrap();
     }
 }
