@@ -203,17 +203,6 @@ fn populate_closest_points(points: &Vec<GridCell>, grid: &mut Grid) {
                     min_distance_count += 1;
                 }
             }
-            /*
-                    Aaaa.ccc
-                    aaddeccc
-                    adddeccC
-                    .dDdeecc
-                    b.deEeec
-                    Bb.eeee.
-                    bb.eeeff
-                    bb.eefff
-                    bb.ffffF
-            */
 
             if min_distance_count > 1 {
                 // If we're tied closest to multiple points, we're on a border cell
