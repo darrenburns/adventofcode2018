@@ -78,6 +78,7 @@ impl FromStr for GridCell {
     }
 }
 
+// Time: 0.33s
 pub fn get_largest_area() -> i32 {
     let grid = build_grid();
     let points_with_infinite_territory = points_with_infinite_territory(&grid);
