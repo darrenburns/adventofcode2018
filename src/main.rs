@@ -4,7 +4,8 @@ mod three;
 mod four;
 mod five;
 mod six;
+mod seven;
 
 fn main() {
-    println!("{:?}", six::find_region());
+    println!("{:?}", seven::get_instruction_ordering());
 }

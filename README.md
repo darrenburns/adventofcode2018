@@ -7,6 +7,10 @@ Python for some questions if required.
 
 ### Benchmarks
 
+#### Day 7: The Sum Of Its Parts
+
+...
+
 #### Day 6: Chronal Coordinates
 
 ##### Part 1
