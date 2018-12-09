@@ -6,5 +6,5 @@ mod five;
 mod six;
 
 fn main() {
-    println!("{:?}", one::first_repeated_frequency());
+    println!("{:?}", six::find_region());
 }

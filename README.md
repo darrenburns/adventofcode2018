@@ -19,10 +19,10 @@ std dev              5.087 ms   (3.238 ms .. 7.149 ms)
 
 ##### Part 2
 ```text
-time                 241.8 ms   (228.0 ms .. 252.8 ms)
-                     0.999 R²   (0.995 R² .. 1.000 R²)
-mean                 243.5 ms   (241.0 ms .. 246.2 ms)
-std dev              3.405 ms   (1.765 ms .. 4.825 ms)
+time                 230.9 ms   (226.0 ms .. 237.0 ms)
+                     0.999 R²   (0.998 R² .. 1.000 R²)
+mean                 230.9 ms   (228.9 ms .. 233.1 ms)
+std dev              2.960 ms   (2.495 ms .. 3.530 ms)
 ```
 
 #### Day 5: Alchemical Reduction

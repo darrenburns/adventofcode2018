@@ -81,7 +81,6 @@ impl FromStr for GridCell {
     }
 }
 
-// Part 1 - Time: 0.23s
 pub fn get_largest_area() -> i32 {
     let points = load_points_from_coords_file();
     let grid = build_grid(&points);
@@ -117,17 +116,18 @@ pub fn get_largest_area() -> i32 {
     area_of_territory
 }
 
-// Part 2 - 0.24s
 pub fn find_region() -> i32 {
     let points = load_points_from_coords_file();
     let grid = build_grid(&points);
 
+    let num_points = points.len();
+    let leeway = MANHATTAN_LIMIT as usize/num_points;
     let region_size = grid.iter()
-        .chain(grid.iter())  // The region can lie outwith the min-max bounding box!
+        .chain(vec![vec![GridCell::Empty]; leeway].iter())  // The region can lie outwith the min-max bounding box!
         .enumerate()
         .fold(0, |acc, (row_idx, row)| {
             acc + row.iter()
-                .chain(row.iter())
+                .chain(vec![GridCell::Empty; leeway].iter())
                 .enumerate()
                 .map(|(col_idx, cell)| {
                     let manhattan_sum_this_cell = points.iter()
