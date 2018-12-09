@@ -123,8 +123,9 @@ pub fn get_instruction_ordering() -> String {
     println!("{:?}", pre_requisites);
     println!("{:?}", blockers);
 
-    let pre_req_set: &HashSet<&Step> = &pre_requisites.keys().collect();
-    let blocker_set: &HashSet<&Step> = &blockers.keys().collect();
+    let blockers_clone = blockers.clone();
+    let pre_req_set: HashSet<&Step> = pre_requisites.keys().collect();
+    let blocker_set: HashSet<&Step> = blockers_clone.keys().collect();
     let step = pre_req_set.difference(&blocker_set).next().expect("Multiple first steps possible.");
 
     let mut ordering = String::new();
@@ -135,7 +136,7 @@ pub fn get_instruction_ordering() -> String {
         // Those steps are now updated to reflect that this is no longer the case.
         let steps_blocked = pre_requisites.get(step).unwrap();
         steps_blocked.iter()
-            .for_each(move |&blocked_step| {
+            .for_each(|&blocked_step| {
                 blockers
                     .entry(blocked_step)
                     .and_modify(|block_list| {
