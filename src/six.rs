@@ -1,3 +1,5 @@
+use core::borrow::Borrow;
+use core::borrow::BorrowMut;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fs::File;
@@ -9,6 +11,7 @@ use std::usize;
 use uuid::Uuid;
 
 const COORDS_FILE: &'static str = "src/files/six/coords.txt";
+const MANHATTAN_LIMIT: i32 = 10000;
 
 type Grid = Vec<Vec<GridCell>>;
 
@@ -78,13 +81,15 @@ impl FromStr for GridCell {
     }
 }
 
-// Time: 0.33s
+// Part 1 - Time: 0.23s
 pub fn get_largest_area() -> i32 {
-    let grid = build_grid();
+    let points = load_points_from_coords_file();
+    let grid = build_grid(&points);
+
     let points_with_infinite_territory = points_with_infinite_territory(&grid);
     let (point_id, &area_of_territory) = grid.iter()
         .flatten()
-        .filter(move |cell| {
+        .filter(|cell| {
             let territory_id = match cell {
                 GridCell::Point { id, .. } => id,
                 GridCell::TerritoryOfPoint { point_id } => point_id,
@@ -112,12 +117,33 @@ pub fn get_largest_area() -> i32 {
     area_of_territory
 }
 
-fn build_grid() -> Grid {
-    let points: Vec<GridCell> = BufReader::new(File::open(COORDS_FILE).unwrap())
-        .lines()
-        .map(|l| GridCell::from_str(&l.unwrap()).unwrap())
-        .collect();
+// Part 2 - 0.24s
+pub fn find_region() -> i32 {
+    let points = load_points_from_coords_file();
+    let grid = build_grid(&points);
 
+    let region_size = grid.iter()
+        .chain(grid.iter())  // The region can lie outwith the min-max bounding box!
+        .enumerate()
+        .fold(0, |acc, (row_idx, row)| {
+            acc + row.iter()
+                .chain(row.iter())
+                .enumerate()
+                .map(|(col_idx, cell)| {
+                    let manhattan_sum_this_cell = points.iter()
+                        .fold(0, |manhattan_sum, point|
+                            manhattan_sum + manhattan_distance(&point, row_idx, col_idx),
+                        );
+                    manhattan_sum_this_cell
+                })
+                .filter(|manhattan_sum| *manhattan_sum < MANHATTAN_LIMIT)
+                .count()
+        });
+
+    region_size as i32
+}
+
+fn build_grid(points: &Vec<GridCell>) -> Grid {
     let min_row = points.iter().min_by_key(|p| p.row().unwrap()).unwrap().row().unwrap();
     let min_col = points.iter().min_by_key(|p| p.col().unwrap()).unwrap().col().unwrap();
     let max_row = points.iter().max_by_key(|p| p.row().unwrap()).unwrap().row().unwrap() + 1;
@@ -132,6 +158,13 @@ fn build_grid() -> Grid {
         .collect();
 
     fill_grid_with(&points, height, width)
+}
+
+fn load_points_from_coords_file() -> Vec<GridCell> {
+    BufReader::new(File::open(COORDS_FILE).unwrap())
+        .lines()
+        .map(|l| GridCell::from_str(&l.unwrap()).unwrap())
+        .collect()
 }
 
 /// Construct a Grid, which surrounds all of the points (bounding box)
@@ -154,9 +187,7 @@ fn populate_closest_points(points: &Vec<GridCell>, grid: &mut Grid) {
             // For this cell, find the Manhattan distances to all points
             let mut distances = points.iter()
                 .map(|p| {
-                    let manhattan = (p.col().unwrap() as i32 - col_index as i32).abs() +
-                        (p.row().unwrap() as i32 - row_index as i32).abs();
-                    (p.id().unwrap(), manhattan)
+                    (p.id().unwrap(), manhattan_distance(&p, row_index, col_index))
                 });
 
             let mut cell_territory = GridCell::in_territory_of(distances.clone().next().unwrap().0);
@@ -203,7 +234,7 @@ fn points_with_infinite_territory(grid: &Grid) -> HashSet<String> {
 
     grid.iter()
         .enumerate()
-        .flat_map(move |(row_idx, row)| {
+        .flat_map(|(row_idx, row)| {
             row.iter()
                 .enumerate()
                 .filter(move |(col_idx, cell)| {
@@ -218,7 +249,7 @@ fn points_with_infinite_territory(grid: &Grid) -> HashSet<String> {
                         _ => true,
                     }
                 })
-                .map(move |(col_idx, cell)| {
+                .map(|(col_idx, cell)| {
                     match cell {
                         GridCell::TerritoryOfPoint { point_id } => point_id.to_string(),
                         GridCell::Point { id, .. } => id.to_string(),
@@ -227,4 +258,9 @@ fn points_with_infinite_territory(grid: &Grid) -> HashSet<String> {
                 })
         })
         .collect()
+}
+
+fn manhattan_distance(point: &GridCell, target_row: usize, target_col: usize) -> i32 {
+    (point.col().unwrap() as i32 - target_col as i32).abs() +
+        (point.row().unwrap() as i32 - target_row as i32).abs()
 }
