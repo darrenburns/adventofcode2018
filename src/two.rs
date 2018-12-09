@@ -11,7 +11,7 @@ struct RepeatCounts {
     three: i32,
 }
 
-// Time: 0.09s
+// Time: 0.01s
 pub fn calculate_checksum() -> i32 {
     let file = File::open("src/files/two/boxes.txt").unwrap();
     let lines = BufReader::new(file).lines();
@@ -49,7 +49,7 @@ pub fn calculate_checksum() -> i32 {
 }
 
 
-// Time: 0.10s
+// Time: 0.01s
 pub fn find_common_letters() -> String {
     let file = File::open("src/files/two/boxes.txt").unwrap();
     let lines: Vec<String> = BufReader::new(file)

@@ -7,7 +7,7 @@ use std::str::FromStr;
 const END_OF_TIMESTAMP_INDEX: usize = 19;
 
 
-// Time: 0.09s
+// Time: 0.00s (Part 1 + Part 2 combined)
 pub fn checksum() -> i32 {
     let file = File::open("src/files/four/guard_shifts.txt").unwrap();
     let mut lines: Vec<String> = BufReader::new(file).lines().map(|l| l.unwrap()).collect();

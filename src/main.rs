@@ -6,5 +6,5 @@ mod five;
 mod six;
 
 fn main() {
-    println!("{:?}", six::get_largest_area());
+    println!("{:?}", six::find_region());
 }

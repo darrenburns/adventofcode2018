@@ -22,8 +22,7 @@ struct Claim {
     dimensions: Dimension,
 }
 
-// Time: 0.20s (for part 1 only)
-// Time: 0.23s (for part 1 + part 2)
+// Time: 0.02 (for part 1 + part 2)
 pub fn find_num_square_inches_overlapping() -> usize {
     // How many square inches of tiles are within two or more claims
     // i.e. how many elements of the matrix have a value > 1

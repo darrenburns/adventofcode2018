@@ -5,7 +5,7 @@ use rayon::prelude::*;
 const POLYMER_FILE: &'static str = "src/files/five/polymer.txt";
 const UNITS: &'static str = "abcdefghijklmnopqrstuvwxyz";
 
-// Time: Part 1: 0.09s, Part 2: 0.14s
+// Time: 0.06s (Part 1 + Part 2 combined)
 pub fn length_of_final_string() -> usize {
     let reacted = react(read_to_string(POLYMER_FILE).unwrap());
 
