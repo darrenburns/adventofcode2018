@@ -44,7 +44,7 @@ for each P of the pre-requisites A, F:
 
 pop off first elem with all met pre-requisites (A)  # i.e. an empty "blocker" list (or all blockers marked resolved)
 goto A
-pop off first elem with all met pre-requisites (B)
+pop off first step S in pre_requisites.get(A) such that blockers.get(S).is_empty
 goto B
 pop off first elem with all met pre-requisites (D)
 goto D
@@ -62,7 +62,7 @@ use std::io::BufRead;
 use std::io::BufReader;
 use std::str::FromStr;
 
-const INSTRUCTIONS_FILE: &'static str = "src/files/seven/example.txt";
+const INSTRUCTIONS_FILE: &'static str = "src/files/seven/instructions.txt";
 
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
 struct Step(char);
@@ -104,7 +104,7 @@ impl FromStr for Dependency {
 pub fn get_instruction_ordering() -> String {
     let dependencies = get_dependencies_from_file();
 
-    let (mut pre_requisites, mut blockers) = dependencies.iter()
+    let (pre_requisites, mut blockers) = dependencies.iter()
         .fold((HashMap::new(), HashMap::new()), |mut maps, dep| {
             maps.0
                 .entry(dep.must_do)
@@ -117,41 +117,62 @@ pub fn get_instruction_ordering() -> String {
             maps
         });
 
-    // There's only one item which doesn't have any pre-requisites, so start with that.
-
-
-    println!("{:?}", pre_requisites);
-    println!("{:?}", blockers);
+    println!("Pre-requisites (k is required by v) = {:?}", pre_requisites);
+    println!("Blockers (k is blocked by v) = {:?}", blockers);
 
     let blockers_clone = blockers.clone();
     let pre_req_set: HashSet<&Step> = pre_requisites.keys().collect();
     let blocker_set: HashSet<&Step> = blockers_clone.keys().collect();
-    let step = pre_req_set.difference(&blocker_set).next().expect("Multiple first steps possible.");
 
-    let mut ordering = String::new();
-    while ordering.len() < dependencies.len() {
-        ordering.push(step.0);
+    let mut step = *pre_req_set.difference(&blocker_set).next().expect("Multiple initial steps possible.");
+    let final_step = *blocker_set.difference(&pre_req_set).next().expect("Multiple final steps possible.");
+
+    println!("Initial step is = {:?}, final step is = {:?}", step, final_step);
+
+    let mut ordering = step.0.to_string();
+    while ordering.len() < dependencies.len() - 1 {
+        println!("Ordering is: {}", ordering);
+        println!("Step is {:?}", step);
 
         // This step had blocked some other steps.
         // Those steps are now updated to reflect that this is no longer the case.
         let steps_blocked = pre_requisites.get(step).unwrap();
+        println!("Step is blocking {:?}", steps_blocked);
         steps_blocked.iter()
             .for_each(|&blocked_step| {
                 blockers
                     .entry(blocked_step)
                     .and_modify(|block_list| {
                         block_list
-                            .remove(block_list.iter().position(|s| s == *step).expect(
+                            .remove(block_list.iter().position(|s| s == step).expect(
                                 "Blockers & pre-requisite maps are out of sync."
                             ));
                     });
             });
 
-        // Get the first step which was dependent on the current step, and has no blockers.
-
-
         println!("{:?} is blocked by {:?}", steps_blocked, step);
-        break;
+
+        // Get the first step which was required the current step to be done, and has no blockers
+        // Completion of this step will have unlocked at least one of them.
+        let next_step = steps_blocked.iter()
+            .find(|step| {
+                println!("--> Looking for step {:?} that no longer has any blockers in {:?}", step, blockers);
+                blockers.get(step).expect("Blockers out of sync").is_empty()
+            });
+
+
+        // TODO: This block is almost certainly wrong.
+        if let Some(found_step) = next_step {
+            step = found_step;
+            ordering.push(found_step.0);
+        } else {
+            let penultimate_steps: String = blockers.get(final_step).unwrap().iter()
+                .map(|step| step.0)
+                .collect();
+            ordering.push_str(&penultimate_steps);
+            ordering.push(final_step.0);
+        }
+
     }
 //    println!("dependencies: {:?}", dependencies.collect::<Vec<Dependency>>());
 
