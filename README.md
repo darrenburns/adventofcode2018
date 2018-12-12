@@ -9,7 +9,14 @@ Python for some questions if required.
 
 #### Day 7: The Sum Of Its Parts
 
-...
+##### Part 1
+```text
+time                 5.854 ms   (5.729 ms .. 6.046 ms)
+                     0.994 R²   (0.990 R² .. 0.997 R²)
+mean                 6.345 ms   (6.253 ms .. 6.455 ms)
+std dev              307.1 μs   (242.6 μs .. 443.7 μs)
+variance introduced by outliers: 26% (moderately inflated)
+```
 
 #### Day 6: Chronal Coordinates
 
