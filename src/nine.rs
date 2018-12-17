@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 
 const NUM_PLAYERS: usize = 432;
-const LAST_MARBLE_VALUE: usize = 7101900;
+const LAST_MARBLE_VALUE: usize = 71019;
 
 pub fn winning_elf_score() -> usize {
 

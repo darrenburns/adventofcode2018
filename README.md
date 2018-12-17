@@ -7,6 +7,28 @@ Python for some questions if required.
 
 ### Benchmarks
 
+#### Day 10: The Stars Align
+
+...
+
+#### Day 9: Marble Mania
+
+##### Part 1
+```text
+time                 8.197 ms   (8.136 ms .. 8.280 ms)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 8.286 ms   (8.250 ms .. 8.352 ms)
+std dev              136.8 μs   (80.57 μs .. 237.8 μs)
+```
+
+##### Part 2
+```text
+time                 115.6 ms   (107.2 ms .. 129.6 ms)
+                     0.986 R²   (0.968 R² .. 0.999 R²)
+mean                 108.9 ms   (104.9 ms .. 113.8 ms)
+std dev              6.914 ms   (4.228 ms .. 11.06 ms)
+```
+
 #### Day 8: Memory Maneuver
 
 ##### Part 1
