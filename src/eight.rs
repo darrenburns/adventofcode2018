@@ -11,7 +11,25 @@ struct Node {
 
 fn sum_metadata(node: &Node) -> u32 {
     node.metadata.iter().sum::<u32>() +
-        node.children.iter().map(|child| sum_metadata(child)).sum::<u32>()
+        node.children.iter()
+            .map(|child| sum_metadata(child))
+            .sum::<u32>()
+}
+
+fn sum_metadata_part_two(node: &Node) -> u32 {
+    let mut sum = 0;
+
+    if node.children.is_empty() {
+        return node.metadata.iter().sum::<u32>();
+    }
+
+    for &meta in node.metadata.iter() {
+        sum += node.children.get(meta as usize - 1)
+            .map(|node| sum_metadata_part_two(node))
+            .unwrap_or_default();
+    }
+
+    sum
 }
 
 pub fn calculate_sum() -> u32 {
@@ -19,6 +37,13 @@ pub fn calculate_sum() -> u32 {
     let node = Node::get_node(&mut tree.iter().cloned()).expect("No input data.");
 
     sum_metadata(&node)
+}
+
+pub fn calculate_value_of_root() -> u32 {
+    let tree = load_tree_data();
+    let node = Node::get_node(&mut tree.iter().cloned()).expect("No input data.");
+
+    sum_metadata_part_two(&node)
 }
 
 impl Node {
