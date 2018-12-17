@@ -7,7 +7,8 @@ mod six;
 mod seven;
 mod eight;
 mod nine;
+mod ten;
 
 fn main() {
-    println!("{:?}", nine::winning_elf_score());
+    println!("{:?}", eight::calculate_value_of_root());
 }

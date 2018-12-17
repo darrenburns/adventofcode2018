@@ -22,7 +22,7 @@ fn sum_metadata_part_two(node: &Node) -> u32 {
     }
 
     node.metadata.iter()
-        .fold(0, |sum, node|
+        .fold(0, |sum, &meta|
             sum + node.children.get(meta as usize - 1)
                 .map(|node| sum_metadata_part_two(node))
                 .unwrap_or_default(),
