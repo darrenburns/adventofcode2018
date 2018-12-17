@@ -8,5 +8,5 @@ mod seven;
 mod eight;
 
 fn main() {
-    println!("{:?}", eight::calculate_value_of_root());
+    println!("{:?}", eight::calculate_sum());
 }

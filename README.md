@@ -7,6 +7,24 @@ Python for some questions if required.
 
 ### Benchmarks
 
+#### Day 8: Memory Maneuver
+
+##### Part 1
+```text
+time                 8.083 ms   (8.019 ms .. 8.179 ms)
+                     0.999 R²   (0.997 R² .. 1.000 R²)
+mean                 8.376 ms   (8.281 ms .. 8.665 ms)
+std dev              429.3 μs   (173.0 μs .. 819.5 μs)
+```
+
+##### Part 2
+```text
+time                 8.027 ms   (7.954 ms .. 8.085 ms)
+                     0.999 R²   (0.999 R² .. 1.000 R²)
+mean                 8.256 ms   (8.145 ms .. 8.544 ms)
+std dev              489.9 μs   (150.2 μs .. 970.2 μs)
+```
+
 #### Day 7: The Sum Of Its Parts
 
 ##### Part 1
