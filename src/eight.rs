@@ -17,19 +17,16 @@ fn sum_metadata(node: &Node) -> u32 {
 }
 
 fn sum_metadata_part_two(node: &Node) -> u32 {
-    let mut sum = 0;
-
     if node.children.is_empty() {
         return node.metadata.iter().sum::<u32>();
     }
 
-    for &meta in node.metadata.iter() {
-        sum += node.children.get(meta as usize - 1)
-            .map(|node| sum_metadata_part_two(node))
-            .unwrap_or_default();
-    }
-
-    sum
+    node.metadata.iter()
+        .fold(0, |sum, node|
+            sum + node.children.get(meta as usize - 1)
+                .map(|node| sum_metadata_part_two(node))
+                .unwrap_or_default(),
+        )
 }
 
 pub fn calculate_sum() -> u32 {
