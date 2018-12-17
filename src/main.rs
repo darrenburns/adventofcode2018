@@ -6,7 +6,8 @@ mod five;
 mod six;
 mod seven;
 mod eight;
+mod nine;
 
 fn main() {
-    println!("{:?}", eight::calculate_sum());
+    println!("{:?}", nine::winning_elf_score());
 }
