@@ -5,7 +5,8 @@ mod four;
 mod five;
 mod six;
 mod seven;
+mod eight;
 
 fn main() {
-    println!("{:?}", seven::get_instruction_ordering());
+    println!("{:?}", eight::calculate_sum());
 }
