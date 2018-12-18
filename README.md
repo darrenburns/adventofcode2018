@@ -9,7 +9,13 @@ Python for some questions if required.
 
 #### Day 10: The Stars Align
 
-...
+##### Part 1 + Part 2 (Solved and benchmarked together)
+```text
+time                 28.88 ms   (28.50 ms .. 29.20 ms)
+                     0.999 R²   (0.999 R² .. 1.000 R²)
+mean                 29.35 ms   (29.07 ms .. 29.75 ms)
+std dev              699.6 μs   (464.1 μs .. 1.108 ms)
+```
 
 #### Day 9: Marble Mania
 

@@ -1,3 +1,5 @@
+#[macro_use] extern crate scan_fmt;
+
 mod one;
 mod two;
 mod three;
@@ -10,5 +12,5 @@ mod nine;
 mod ten;
 
 fn main() {
-    println!("{:?}", eight::calculate_value_of_root());
+    println!("{:?}", ten::find_message());
 }
