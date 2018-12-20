@@ -10,7 +10,8 @@ mod seven;
 mod eight;
 mod nine;
 mod ten;
+mod eleven;
 
 fn main() {
-    println!("{:?}", ten::find_message());
+    println!("{:?}", eleven::get_optimal_cell_coords());
 }
