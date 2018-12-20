@@ -31,11 +31,10 @@ pub fn get_optimal_cell_coords() -> FuelCell {
     let mut best_cell = grid[0][0];
     let mut max_subgrid_power = 0;
     let mut optimum_subgrid_size = 0;
-    for search_square_size in 0..GRID_SQUARE_SIZE {
+    for search_square_size in (0..GRID_SQUARE_SIZE) {
         println!("Searching subgrids of size {}", search_square_size);
         for y_index in 0..GRID_SQUARE_SIZE - search_square_size - 1 {
             for x_index in 0..GRID_SQUARE_SIZE - search_square_size - 1 {
-
                 let mut this_subgrid_power = 0;
                 for y in y_index..y_index + search_square_size {
                     for x in x_index..x_index + search_square_size {

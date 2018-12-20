@@ -11,7 +11,8 @@ mod eight;
 mod nine;
 mod ten;
 mod eleven;
+mod twelve;
 
 fn main() {
-    println!("{:?}", eleven::get_optimal_cell_coords());
+    println!("{:?}", twelve::get_living_plant_numbers_summed());
 }
