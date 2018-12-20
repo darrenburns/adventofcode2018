@@ -24,7 +24,8 @@ pub fn get_living_plant_numbers_summed() -> i32 {
             let neighbours = padded_current[plant - 2..plant + 2 + 1].to_string();
             next_generation.push_str(notes_map.get(&neighbours).unwrap());
         }
-        current_generation = next_generation.clone();
+
+        current_generation = next_generation;
         println!("{:2}: {}", generation, current_generation);
     }
 
