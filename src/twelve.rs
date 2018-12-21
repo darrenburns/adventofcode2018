@@ -30,8 +30,12 @@ pub fn get_living_plant_numbers_summed() -> i32 {
     }
 
     let lowest_pot_num = -2 * NUM_GENERATIONS;
-    (lowest_pot_num..current_generation.len() as i32)
-        .zip(current_generation.chars())
+    sum_plants(lowest_pot_num, current_generation)
+}
+
+fn sum_plants(lowest_pot_num: i32, generation: String) -> i32 {
+    (lowest_pot_num..generation.len() as i32)
+        .zip(generation.chars())
         .filter(|&(pot_num, ch)| ch == '#')
         .map(|(pot_num, _)| {
             pot_num
