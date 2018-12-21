@@ -7,6 +7,23 @@ Python for some questions if required.
 
 ### Benchmarks
 
+#### Day 12: Subterranean Sustainability
+
+##### Part 1 + Part 2 (Benchmarked together)
+```text
+time                 22.27 ms   (22.16 ms .. 22.42 ms)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 22.59 ms   (22.47 ms .. 22.97 ms)
+std dev              422.2 μs   (157.7 μs .. 801.9 μs)
+```
+
+#### Day 11: Chronal Charge
+
+Part 1 was fast, part 2 was not. It took over a minute to execute part 2, 
+but the approach was quite brute-force. The question seems quite suited towards a dynamic 
+programming approach, which would probably improve performance considerably.
+
+
 #### Day 10: The Stars Align
 
 ##### Part 1 + Part 2 (Solved and benchmarked together)
@@ -61,7 +78,6 @@ time                 5.854 ms   (5.729 ms .. 6.046 ms)
                      0.994 R²   (0.990 R² .. 0.997 R²)
 mean                 6.345 ms   (6.253 ms .. 6.455 ms)
 std dev              307.1 μs   (242.6 μs .. 443.7 μs)
-variance introduced by outliers: 26% (moderately inflated)
 ```
 
 #### Day 6: Chronal Coordinates
