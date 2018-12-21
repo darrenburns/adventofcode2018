@@ -16,7 +16,6 @@ pub fn get_living_plant_numbers_summed() -> i64 {
         map
     });
 
-
     let mut seen_plants = HashSet::new();
     let mut current_generation = INITIAL_STATE.to_string();
     let mut generation = 0;
@@ -29,20 +28,16 @@ pub fn get_living_plant_numbers_summed() -> i64 {
         }
 
         let just_plants = just_plants(current_generation.clone());
-        if seen_plants.contains(&just_plants) {
-            // We've reached the point of convergence
+        if seen_plants.contains(&just_plants) {  // We've converged to a repeating pattern
             let num_remaining_generations = FIFTY_BILLION - generation;
             let current_gen_sum = sum_plants(-2 * generation, current_generation.clone());
             let next_gen_sum = sum_plants(-2 * (generation + 1), next_generation.clone());
             let increase_each_gen = next_gen_sum - current_gen_sum;
             let sum_for_remaining_gens = num_remaining_generations * increase_each_gen;
-            let final_sum = current_gen_sum + sum_for_remaining_gens;
-            println!("gen [{}] current_sum = {} increase_each_gen = {}, num_remaining_gens = {}", generation, current_gen_sum, increase_each_gen, num_remaining_generations);
-            return final_sum;
+            return current_gen_sum + sum_for_remaining_gens;
         } else {
             seen_plants.insert(just_plants);
         }
-
         current_generation = next_generation;
         generation += 1;
     }
